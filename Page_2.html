@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch & Post Data</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    button, input[type="submit"] {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    button:hover, input[type="submit"]:hover {
+      background: #2980b9;
+    }
+
+    #data, #response {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #data {
+      background: #fff;
+      border-left: 5px solid #3498db;
+    }
+
+    .comment {
+      background: #f1f1f1;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .comment b {
+      color: #2c3e50;
+    }
+
+    #response {
+      background: #ecf9ec;
+      border-left: 5px solid #27ae60;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    form input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Fetch & Post Data</h2>
+
+  <div style="text-align:center;">
+    <button id="fetchBtn">Fetch Data</button>
+  </div>
+  <div id="data">Fetched data will appear here...</div>
+
+  <h3>Submit a Post</h3>
+  <form id="postForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" required>
+
+    <label for="body">Body:</label>
+    <input type="text" id="body" required>
+
+    <br><br>
+    <input type="submit" value="Submit Post">
+  </form>
+
+  <div id="response">Response will appear here...</div>
+
+  <script>
+    document.getElementById("fetchBtn").addEventListener("click", function () {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://jsonplaceholder.typicode.com/comments", true);
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          let output = "<h4>Fetched Comments:</h4>";
+          data.slice(0, 5).forEach(comment => {
+            output += `
+              <div class="comment">
+                <b>${comment.name}</b><br>
+                ${comment.body}
+              </div>`;
+          });
+          document.getElementById("data").innerHTML = output;
+        } else {
+          document.getElementById("data").innerHTML = " Error fetching data.";
+        }
+      };
+
+      xhr.send();
+    });
+
+    document.getElementById("postForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value;
+      const body = document.getElementById("body").value;
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://jsonplaceholder.typicode.com/posts", true);
+      xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+      xhr.onload = function () {
+        if (xhr.status === 201) {
+          const response = JSON.parse(xhr.responseText);
+          document.getElementById("response").innerHTML =
+            `<h4> Server Response:</h4>
+             <p><b>ID:</b> ${response.id}</p>
+             <p><b>Title:</b> ${response.title}</p>
+             <p><b>Body:</b> ${response.body}</p>`;
+        } else {
+          document.getElementById("response").innerHTML = " Error submitting data.";
+        }
+      };
+
+      const data = JSON.stringify({ title: title, body: body });
+      xhr.send(data);
+    });
+  </script>
+</body>
+</html>

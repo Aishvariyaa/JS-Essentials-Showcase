@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Form Validation</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+    input.error-field, select.error-field {
+      border: 2px solid red;
+    }
+    button:disabled {
+      background-color: grey;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h2>Registration Form</h2>
+  <form id="registrationForm">
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <span class="error" id="nameError"></span><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <span class="error" id="emailError"></span><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <span class="error" id="passwordError"></span><br><br>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword">
+    <span class="error" id="confirmPasswordError"></span><br><br>
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone">
+    <span class="error" id="phoneError"></span><br><br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob">
+    <span class="error" id="dobError"></span><br><br>
+
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="Male"> Male
+    <input type="radio" name="gender" value="Female"> Female
+    <input type="radio" name="gender" value="Other"> Other
+    <span class="error" id="genderError"></span><br><br>
+
+    <label for="country">Country:</label>
+    <select id="country" name="country">
+      <option value="">--Select--</option>
+      <option value="India">India</option>
+      <option value="USA">USA</option>
+      <option value="UK">UK</option>
+      <option value="Canada">Canada</option>
+    </select>
+    <span class="error" id="countryError"></span><br><br>
+
+    <input type="checkbox" id="terms" name="terms">
+    <label for="terms">I agree to the Terms and Conditions</label>
+    <span class="error" id="termsError"></span><br><br>
+
+    <button type="submit" id="submitBtn" disabled>Submit</button>
+  </form>
+
+  <p id="successMessage" style="color:green; font-weight:bold;"></p>
+
+  <script>
+    const form = document.getElementById("registrationForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function validateForm() {
+      let valid = true;
+
+      document.querySelectorAll(".error").forEach(e => e.innerText = "");
+      document.querySelectorAll("input, select").forEach(f => f.classList.remove("error-field"));
+
+      const name = document.getElementById("name");
+      if (!/^[A-Za-z\s]+$/.test(name.value.trim())) {
+        document.getElementById("nameError").innerText = "Name should contain only letters.";
+        name.classList.add("error-field");
+        valid = false;
+      }
+
+      const email = document.getElementById("email");
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value.trim())) {
+        document.getElementById("emailError").innerText = "Enter a valid email address.";
+        email.classList.add("error-field");
+        valid = false;
+      }
+
+      const password = document.getElementById("password");
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+      if (!passwordPattern.test(password.value)) {
+        document.getElementById("passwordError").innerText =
+          "Password must be at least 6 chars, include uppercase, lowercase, number & special char.";
+        password.classList.add("error-field");
+        valid = false;
+      }
+
+      const confirmPassword = document.getElementById("confirmPassword");
+      if (confirmPassword.value !== password.value || confirmPassword.value === "") {
+        document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+        confirmPassword.classList.add("error-field");
+        valid = false;
+      }
+
+      const phone = document.getElementById("phone");
+      if (!/^[0-9]{10,15}$/.test(phone.value.trim())) {
+        document.getElementById("phoneError").innerText = "Enter a valid phone number (10–15 digits).";
+        phone.classList.add("error-field");
+        valid = false;
+      }
+
+      const dob = document.getElementById("dob");
+      if (dob.value) {
+        const dobDate = new Date(dob.value);
+        const today = new Date();
+        let age = today.getFullYear() - dobDate.getFullYear();
+        if (today < new Date(dobDate.setFullYear(dobDate.getFullYear() + age))) age--;
+        if (age < 18) {
+          document.getElementById("dobError").innerText = "You must be at least 18 years old.";
+          dob.classList.add("error-field");
+          valid = false;
+        }
+      } else {
+        document.getElementById("dobError").innerText = "Date of Birth is required.";
+        dob.classList.add("error-field");
+        valid = false;
+      }
+
+      const genderSelected = document.querySelector("input[name='gender']:checked");
+      if (!genderSelected) {
+        document.getElementById("genderError").innerText = "Please select your gender.";
+        valid = false;
+      }
+
+      const country = document.getElementById("country");
+      if (country.value === "") {
+        document.getElementById("countryError").innerText = "Please select your country.";
+        country.classList.add("error-field");
+        valid = false;
+      }
+
+      const terms = document.getElementById("terms");
+      if (!terms.checked) {
+        document.getElementById("termsError").innerText = "You must agree to continue.";
+        valid = false;
+      }
+
+      submitBtn.disabled = !valid;
+      return valid;
+    }
+
+    form.querySelectorAll("input, select").forEach(field => {
+      field.addEventListener("input", validateForm);
+      field.addEventListener("change", validateForm);
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (validateForm()) {
+        document.getElementById("successMessage").innerText = "Registration successful!";
+        form.reset();
+        submitBtn.disabled = true;
+      }
+    });
+  </script>
+</body>
+</html>
