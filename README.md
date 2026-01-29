@@ -1,15 +1,15 @@
-# 📦 **JS Essentials Showcase**
+# **JS Essentials Showcase**
 
 A multi-module JavaScript web application demonstrating essential front-end skills, including real-time form validation, API communication using XMLHttpRequest, and a persistent To-Do List using LocalStorage.
 This project highlights core JavaScript concepts without using external libraries or frameworks.
 
 ---
 
-## 📝 **Project Overview**
+## **Project Overview**
 
 **JS Essentials Showcase** consists of **three independent modules**, each focusing on a key JavaScript concept:
 
-### 1️⃣ **Registration Form – Real-Time Validation**
+### 1️ **Registration Form – Real-Time Validation**
 
 A fully interactive form with dynamic validation for:
 
@@ -26,7 +26,7 @@ A fully interactive form with dynamic validation for:
 
 ---
 
-### 2️⃣ **Fetch & Post API Demo**
+### 2️ **Fetch & Post API Demo**
 
 Uses **XMLHttpRequest (XHR)** to fetch and post data:
 
@@ -37,7 +37,7 @@ Uses **XMLHttpRequest (XHR)** to fetch and post data:
 
 ---
 
-### 3️⃣ **To-Do List App (LocalStorage)**
+### 3️ **To-Do List App (LocalStorage)**
 
 A simple, beautiful To-Do App featuring:
 
@@ -51,35 +51,35 @@ A simple, beautiful To-Do App featuring:
 
 ## 🚀 **Features**
 
-### ✔️ Pure JavaScript – No Libraries
+### Pure JavaScript – No Libraries
 
-### ✔️ Clean UI + Responsive Design
+### Clean UI + Responsive Design
 
-### ✔️ Real-Time Validation
+### Real-Time Validation
 
-### ✔️ API Fetching & Posting
+### API Fetching & Posting
 
-### ✔️ LocalStorage Persistence
+### LocalStorage Persistence
 
-### ✔️ Beginner-Friendly & Modular Structure
-
----
-
-## 📂 **Project Structure**
-
-```
-📁 js-essentials-showcase
-│
-├── 📄 page1-form-validation.html
-├── 📄 page2-fetch-post.html
-├── 📄 page3-todo-app.html
-│
-└── 📄 README.md
-```
+### Beginner-Friendly & Modular Structure
 
 ---
 
-## 🛠️ **Technologies Used**
+## **Project Structure**
+
+```
+js-essentials-showcase
+│
+├── page1-form-validation.html
+├── page2-fetch-post.html
+├── page3-todo-app.html
+│
+└── README.md
+```
+
+---
+
+## **Technologies Used**
 
 * **HTML5**
 * **CSS3**
@@ -89,7 +89,7 @@ A simple, beautiful To-Do App featuring:
 
 ---
 
-## 📸 **Screenshots (Optional – Add Later)**
+## **Screenshots (Optional – Add Later)**
 
 You can add:
 
@@ -99,7 +99,7 @@ You can add:
 
 ---
 
-## ▶️ **How to Run the Project**
+## **How to Run the Project**
 
 1. Download or clone the repository:
 
@@ -116,7 +116,7 @@ No server required — runs on browser only.
 
 ---
 
-## 📚 **Learning Outcomes**
+## **Learning Outcomes**
 
 By exploring this project, you will understand:
 
@@ -129,7 +129,7 @@ By exploring this project, you will understand:
 
 ---
 
-## 💡 **Future Enhancements**
+## **Future Enhancements**
 
 * Convert the To-Do App into a full CRUD system
 * Add Fetch API version for comparison
